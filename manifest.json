@@ -1,6 +1,6 @@
 {
-  "name": "Student Expense Tracker",
-  "short_name": "Expense Tracker",
+  "name": "SET",
+  "short_name": "SET",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#FFFFFF",
