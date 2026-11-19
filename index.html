@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- HEADER -->
+        <header class="app-header">
+
+            <div class="brand">
+
+                <div class="app-logo">
+                    ₹
+                </div>
+
+                <div>
+                    <p class="welcome-text">Welcome back 👋</p>
+                    <h1>Student Expense Tracker</h1>
+                    <p class="subtitle">Manage your spending smartly</p>
+                </div>
+
+            </div>
+
+            <div class="header-badge">
+                Student
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section class="dashboard">
+
+            <div class="stat-card total">
+                <p>Total Spent</p>
+                <h2>₹<span id="total">0</span></h2>
+                <span>This month</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Today's Spending</p>
+                <h2>₹<span id="todayTotal">0</span></h2>
+                <span>Today</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Expenses</p>
+                <h2><span id="expenseCount">0</span></h2>
+                <span>Total entries</span>
+            </div>
+
+            <div class="stat-card budget-card">
+
+                <p>Monthly Budget</p>
+
+                <h2>₹<span id="budgetAmount">0</span></h2>
+
+                <span>
+                    Remaining: ₹<span id="remainingBudget">0</span>
+                </span>
+
+                <button class="budget-button" onclick="setBudget()">
+                    Set Budget
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADD EXPENSE -->
+        <section class="expense-form">
+
+            <div class="section-heading">
+                <div>
+                    <p class="small-title">TRANSACTIONS</p>
+                    <h2>Add New Expense</h2>
+                </div>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Expense Name</label>
+                    <input
+                        id="expenseName"
+                        type="text"
+                        placeholder="Eg. Lunch">
+                </div>
+
+                <div class="input-group">
+                    <label>Amount</label>
+                    <input
+                        id="amount"
+                        type="number"
+                        placeholder="₹ Enter amount">
+                </div>
+
+                <div class="input-group">
+                    <label>Category</label>
+
+                    <select id="category">
+                        <option>Food</option>
+                        <option>Transport</option>
+                        <option>Education</option>
+                        <option>Entertainment</option>
+                        <option>Other</option>
+                    </select>
+
+                </div>
+
+                <div class="input-group">
+                    <label>Date</label>
+                    <input id="date" type="date">
+                </div>
+
+            </div>
+
+            <button class="add-button" onclick="addExpense()">
+                + Add Expense
+            </button>
+
+        </section>
+
+
+        <!-- RECENT EXPENSES -->
+        <section class="expenses">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="small-title">YOUR MONEY</p>
+                    <h2>Recent Expenses</h2>
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH AND FILTER -->
+            <div class="expense-filters">
+
+                <input
+                    type="text"
+                    id="searchExpense"
+                    placeholder="🔍 Search expenses..."
+                    oninput="filterExpenses()">
+
+                <select
+                    id="filterCategory"
+                    onchange="filterExpenses()">
+
+                    <option value="All">All Categories</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Education">Education</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+            <div id="emptyState" class="empty-state">
+
+                <div class="empty-icon">🧾</div>
+
+                <h3>No expenses yet</h3>
+
+                <p>
+                    Start tracking your spending by adding your first expense.
+                </p>
+
+            </div>
+
+
+            <!-- EXPENSE LIST -->
+            <ul id="expenseList"></ul>
+
+        </section>
+
+
+        <!-- SPENDING BREAKDOWN -->
+        <section class="spending-breakdown">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="small-title">ANALYTICS</p>
+                    <h2>Spending Breakdown</h2>
+                </div>
+
+            </div>
+
+            <div class="breakdown-grid">
+
+                <div class="breakdown-item">
+                    <span>🍔 Food</span>
+                    <strong id="foodTotal">₹0</strong>
+                </div>
+
+                <div class="breakdown-item">
+                    <span>🚌 Transport</span>
+                    <strong id="transportTotal">₹0</strong>
+                </div>
+
+                <div class="breakdown-item">
+                    <span>📚 Education</span>
+                    <strong id="educationTotal">₹0</strong>
+                </div>
+
+                <div class="breakdown-item">
+                    <span>🎮 Entertainment</span>
+                    <strong id="entertainmentTotal">₹0</strong>
+                </div>
+
+                <div class="breakdown-item">
+                    <span>💰 Other</span>
+                    <strong id="otherTotal">₹0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SPENDING CHART -->
+        <section class="spending-chart">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="small-title">VISUAL INSIGHTS</p>
+                    <h2>Where Your Money Goes</h2>
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+                <canvas id="expenseChart"></canvas>
+            </div>
+
+        </section>
+
+
+        <!-- SMART INSIGHTS -->
+        <section class="smart-insights">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="small-title">SMART INSIGHTS</p>
+                    <h2>Spending Insights</h2>
+                </div>
+
+            </div>
+
+            <div id="insightMessage" class="insight-message">
+                💡 Add some expenses to see your spending insights.
+            </div>
+
+        </section>
+
+
+        <!-- MONTHLY SUMMARY -->
+        <section class="monthly-summary">
+
+            <div class="section-heading">
+                <p class="small-title">MONTHLY OVERVIEW</p>
+                <h2>This Month</h2>
+            </div>
+
+            <div class="monthly-grid">
+
+                <div class="monthly-card">
+                    <span>Total Spent</span>
+                    <strong id="monthlyTotal">₹0</strong>
+                </div>
+
+                <div class="monthly-card">
+                    <span>Expenses</span>
+                    <strong id="monthlyCount">0</strong>
+                </div>
+
+                <div class="monthly-card">
+                    <span>Top Category</span>
+                    <strong id="monthlyCategory">None</strong>
+                </div>
+
+                <div class="monthly-card">
+                    <span>Remaining Budget</span>
+                    <strong id="monthlyRemaining">₹0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
