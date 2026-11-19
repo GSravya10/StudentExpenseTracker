@@ -1,0 +1,16 @@
+{
+  "name": "Student Expense Tracker",
+  "short_name": "Expense Tracker",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#9B82C4",
+  "description": "A simple student expense tracking app",
+  "icons": [
+  {
+    "src": "set-icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
+}
